@@ -18,6 +18,7 @@ const paddle = {
   dx: 5
 }
 
+ctx.lineWidth = 3;
 function drawPaddle(){
   ctx.fillStyle = "#2e3548";
   ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
@@ -26,4 +27,23 @@ function drawPaddle(){
 }
 
 drawPaddle();
+
+//FUNCTIONS
+function draw(){
+    drawPaddle();
+}
+
+function update(){
+    
+}
+
+function loop(){
+
+  draw();
+  update();
+
+  requestAnimationFrame(loop);
+
+}
+loop();
 
