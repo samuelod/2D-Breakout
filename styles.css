@@ -2,21 +2,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Germania One', cursive;
+		font-family: 'Bowlby One', cursive;
     color: whitesmoke;
 }
 
 body	{
-	background-image: url("./img/background.jpeg");
-	background-repeat: no-repeat;
-	height: 100%;
-  background-position: center;
-  background-size: cover;
+	background: peachpuff;
 }
 
-#breakout	{
-	background-image: inherit;
-	border-radius: 10px;
+#canvas	{
 	position: absolute;
 	left: 50%;
 	top: 50%;
@@ -24,20 +18,4 @@ body	{
 	border: 1px solid lightsalmon;
 }
 
-.high-score{
-	position: absolute;
-	top: 1.5rem;
-	width: 80%;
-	left: 10%;
-	text-align: center;
-}
-
-.reset{
-	cursor: pointer;
-	position: absolute;
-	top: 95%;
-	left: 10%;
-	width: 80%;
-	text-align: center;
-}
 
