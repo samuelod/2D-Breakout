@@ -1,21 +1,21 @@
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-		font-family: 'Bowlby One', cursive;
-    color: whitesmoke;
+    box-sizing: border-box;		
 }
 
-body	{
+body{
 	background: peachpuff;
 }
 
 #canvas	{
+	background-image: url("./img/background.jpeg");
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	border: 1px solid lightsalmon;
+	font-family: 'Bowlby One', cursive;
 }
 
 
