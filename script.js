@@ -36,16 +36,16 @@ function drawPaddle(){
 
 //CONTROLING THE PADDLE
 document.addEventListener("keydown", function(event){
-  if(event.keyCode == 37){
+  if(event.key == 37){
       leftArrow = true;
-  }else if(event.keyCode == 39){
+  }else if(event.key == 39){
       rightArrow = true;
   }
 });
 document.addEventListener("keyup", function(event){
-  if(event.keyCode == 37){
+  if(event.key == 37){
       leftArrow = false;
-  }else if(event.keyCode == 39){
+  }else if(event.key == 39){
       rightArrow = false;
   }
 });
