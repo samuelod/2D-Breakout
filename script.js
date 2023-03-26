@@ -79,6 +79,10 @@ function drawBall(){
 }
 
 //MAKING BALL MOVE
+function moveBall(){
+  ball.x += ball.dx;
+  ball.y += ball.dy;
+}
 
 //FUNCTIONS
 function draw(){
@@ -89,6 +93,7 @@ function draw(){
 //UPDATE GAME 
 function update(){
     movePaddle();
+    moveBall();
     
 }
 
