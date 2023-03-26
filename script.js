@@ -12,8 +12,9 @@ const paddleBottom = 50;
 const paddleHeight = 20;
 let leftArrow = false;
 let rightArrow = false;
+const ballRadius = 8;
 
-// CREATE THE PADDLE 
+// CREATING THE PADDLE 
 const paddle = {
   x : cvs.width/2 - paddleWidth/2,
   y : cvs.height - paddleBottom - paddleHeight, //paddleBottom is distance btwn the bottom margin * bottom of paddle 
@@ -32,7 +33,7 @@ function drawPaddle(){
 
 
 
-//CONTROLING PADDLE
+//CONTROLING THE PADDLE
 document.addEventListener("keydown", function(event){
   if(event.keyCode == 37){
       leftArrow = true;
@@ -48,7 +49,7 @@ document.addEventListener("keyup", function(event){
   }
 });
 
-//MOVING PADDLE 
+
 function movePaddle(){
     if(rightArrow && paddle.x + paddle.width < cvs.width){
       paddle.x += paddle.dx;
@@ -57,9 +58,32 @@ function movePaddle(){
     }
 }
 
+//CREATING THE BALL
+const ball = {
+  x : cvs.width/2,
+  y : paddle.y - ballRadius,
+  radius : ballRadius,
+  speed : 4,
+  dx : 3,
+  dy : -3
+}
+
+function drawBall(){
+  ctx.beginPath();
+  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2);
+  ctx.fillStyle = "#ff494e";
+  ctx.fill();
+  ctx.strokeStyle = "#2e3548";
+  ctx.stroke();
+  ctx.closePath();
+}
+
+//MAKING BALL MOVE
+
 //FUNCTIONS
 function draw(){
     drawPaddle();
+    drawBall();
 }
 
 //UPDATE GAME 
