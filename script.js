@@ -12,6 +12,7 @@ const paddleBottom = 50;
 const paddleHeight = 20;
 let leftArrow = false;
 let rightArrow = false;
+let numOfLives = 5;
 const ballRadius = 8;
 
 // CREATING THE PADDLE 
@@ -64,7 +65,7 @@ const ball = {
   y : paddle.y - ballRadius,
   radius : ballRadius,
   speed : 4,
-  dx : 3,
+  dx : 3 * (Math.random() * 2 - 1),
   dy : -3
 }
 
@@ -84,6 +85,43 @@ function moveBall(){
   ball.y += ball.dy;
 }
 
+//COLLISION DETECTION WHEN BALL HITS WALL
+function ballWallCollision(){
+    if(ball.x + ball.radius > cvs.width || ball.x - ball.radius < 0){
+        ball.dx = - ball.dx;
+    }
+    if(ball.y - ball.radius < 0){
+        ball.dy = -ball.dy;
+    }
+    if(ball.y + ball.radius > cvs.height){
+      numOfLives--; //LOSE A LIFE
+      resetBall();
+    }
+}
+
+//COLLISION DETECTION WHEN BALL HITS PADDLE
+function ballPaddleCollision(){
+    if(ball.x < paddle.x + paddle.width && ball.x > paddle.x && paddle.y < paddle.y +
+      paddle.height && ball.y > paddle.y ){
+        //CHECK WHERE BALL HITS PADDLE
+          let collisionPoint = ball.x - (paddle.x + paddle.width/2);
+        // NORMALIZE VALUES TO GET POINTS BTWN -1 AND 1 
+          collisionPoint = collisionPoint / (paddle.width/2);
+        //CALCULATE THE ANGLE BALL IS SENT, MAX ANGLE IS 60 DEGREES
+          let angle = collisionPoint * Math.PI/3;
+          ball.dx = ball.speed * Math.sin(angle);
+          ball.dy = - ball.speed * Math.cos(angle);
+      }
+
+}
+
+//RESETING THE BALL
+function resetBall(){
+  ball.x = cvs.width/2;
+  ball.y = paddle.y - ballRadius;
+  ball.dx = 3 * (Math.random() * 2 - 1);
+  ball.dy = -3;
+}
 //FUNCTIONS
 function draw(){
     drawPaddle();
@@ -94,6 +132,8 @@ function draw(){
 function update(){
     movePaddle();
     moveBall();
+    ballWallCollision();
+    ballPaddleCollision();
     
 }
 
