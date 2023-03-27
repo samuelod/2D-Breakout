@@ -12,7 +12,9 @@ const paddleBottom = 50;
 const paddleHeight = 20;
 let leftArrow = false;
 let rightArrow = false;
-let numOfLives = 5;
+let life = 1;
+let score = 0;
+const scoreUnit = 5;
 const ballRadius = 8;
 
 // CREATING THE PADDLE 
@@ -94,7 +96,7 @@ function ballWallCollision(){
         ball.dy = -ball.dy;
     }
     if(ball.y + ball.radius > cvs.height){
-      numOfLives--; //LOSE A LIFE
+      life--; //LOSE A LIFE
       resetBall();
     }
 }
@@ -143,21 +145,38 @@ function createBricks(){
     }
 }
 
+createBricks();
+
 function drawBricks(){
   for(let r = 0; r < brick.row; r++){
-      for(let c = 0; c < brick.column; c++){ 
+      for(let c = 0; c < brick.column; c++){
           let b = bricks[r][c];
-          if(bricks[r][c].status)  //if brick isn't broken
-            ctx.fillStyle = brick.fillColor;
-            ctx.fillRect(b.x, b.y, brick.width, brick.height);
-            ctx.strokeStyle = brick.strokeColor;
-            ctx.strokeRect(b.x, b.y, brick.width, brick.height);
-     }
+          if(b.status){  // if the brick isn't broken
+              ctx.fillStyle = brick.fillColor;
+              ctx.fillRect(b.x, b.y, brick.width, brick.height);
+              ctx.strokeStyle = brick.strokeColor;
+              ctx.strokeRect(b.x, b.y, brick.width, brick.height);
+          }
+      }
   }
 }
 
+//COLLISION DETECTION FOR BRICKS
+function ballBrickCollision(){
+  for(let r = 0; r < brick.row; r++){
+      for(let c = 0; c < brick.column; c++){
+          let b = bricks[r][c];
+          if(b.status){// if the brick isn't broken
+              if(ball.x + ball.radius > b.x && ball.x - ball.radius < b.x + brick.width && ball.y + ball.radius > b.y && ball.y - ball.radius < b.y + brick.height){
+                  ball.dy = - ball.dy;
+                  b.status = false; // the brick is broken
+                  score += scoreUnit;
+              }
+          }
+      }
+  }
+}
 
-createBricks();
 //RESETING THE BALL
 function resetBall(){
   ball.x = cvs.width/2;
@@ -178,6 +197,7 @@ function update(){
     moveBall();
     ballWallCollision();
     ballPaddleCollision();
+    ballBrickCollision();
     
 }
 
