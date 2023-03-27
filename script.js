@@ -36,16 +36,16 @@ function drawPaddle(){
 
 //CONTROLING THE PADDLE
 document.addEventListener("keydown", function(event){
-  if(event.key == 37){
+  if(event.keyCode == 37){
       leftArrow = true;
-  }else if(event.key == 39){
+  }else if(event.keyCode == 39){
       rightArrow = true;
   }
 });
 document.addEventListener("keyup", function(event){
-  if(event.key == 37){
+  if(event.keyCode == 37){
       leftArrow = false;
-  }else if(event.key == 39){
+  }else if(event.keyCode == 39){
       rightArrow = false;
   }
 });
@@ -115,6 +115,49 @@ function ballPaddleCollision(){
 
 }
 
+//CREATING THE BRICKS
+const brick = {
+  row : 3,
+  column : 5,
+  width : 55,
+  height : 20,
+  leftOffSet: 20,
+  topOffSet : 20,
+  topMargin : 40,
+  fillColor : "2e3548",
+  strokeColor : "#FFF"
+}
+
+let bricks = [];
+
+function createBricks(){
+    for(let r = 0; r < brick.row; r++){
+        bricks[r] = [];
+        for(let c = 0; c < brick.column; c++){
+          bricks[r][c] = {
+            x : c * (brick.leftOffSet + brick.width) + brick.leftOffSet,
+            y : r * (brick.topOffSet + brick.height) + brick.topOffSet + brick.topMargin,
+            status : true
+          }
+       }
+    }
+}
+
+function drawBricks(){
+  for(let r = 0; r < brick.row; r++){
+      for(let c = 0; c < brick.column; c++){ 
+          let b = bricks[r][c];
+          if(bricks[r][c].status)  //if brick isn't broken
+            ctx.fillStyle = brick.fillColor;
+            ctx.fillRect(b.x, b.y, brick.width, brick.height);
+            ctx.strokeStyle = brick.strokeColor;
+            ctx.strokeRect(b.x, b.y, brick.width, brick.height);
+     }
+  }
+}
+
+
+createBricks();
 //RESETING THE BALL
 function resetBall(){
   ball.x = cvs.width/2;
@@ -126,6 +169,7 @@ function resetBall(){
 function draw(){
     drawPaddle();
     drawBall();
+    drawBricks();
 }
 
 //UPDATE GAME 
