@@ -10,12 +10,29 @@ body{
 	background: #FF8300;
 }
 
-/* #canvas	{
-	background
+#canvas	{
+	background:#FFD68A;
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	border: 1px solid lightsalmon;
-	
-} */
+	border: 1px solid lightsalmon;	
+}
+
+
+.high-score{
+	position: absolute;
+	top: 1.5rem;
+	width: 80%;
+	left: 10%;
+	text-align: center;
+}
+
+.reset{
+	cursor: pointer;
+	position: absolute;
+	top: 95%;
+	left: 10%;
+	width: 80%;
+	text-align: center;
+}
