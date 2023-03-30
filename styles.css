@@ -1,21 +1,21 @@
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;		
+    box-sizing: border-box;	
+	font-family: 'Bowlby One', cursive;
+	color: #FFD68A;
 }
 
 body{
-	background: peachpuff;
+	background: #FF8300;
 }
 
-#canvas	{
-	background-image: url("./img/background.jpeg");
+/* #canvas	{
+	background
 	position: absolute;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	border: 1px solid lightsalmon;
-	font-family: 'Bowlby One', cursive;
-}
-
-
+	
+} */
