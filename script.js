@@ -173,10 +173,10 @@ function levelUp(){
     }
     if(gameLevelUp){
       if(ball.dy > 0){
-          ball.dy += 2;
+          ball.dy += 1;
           gameLevelUp = false;
       }else if(ball.dy < 0 ){
-        ball.dy -= 2;
+        ball.dy -= 1;
         gameLevelUp = false;
       }
     }
@@ -212,7 +212,7 @@ function play(){
     if (ball.x >= paddle.x && ball.x <= paddle.x + paddle.width &&
         ball.y + ball.radius >= cvs.height - paddle.height)
         {
-          ball.dy *= -1.1;
+          ball.dy *= -1.05;
           console.log("hit"); //Test for if the ball hits the paddle
         }
 
