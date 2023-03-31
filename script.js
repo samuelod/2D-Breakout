@@ -7,6 +7,7 @@ cvs.width = 500;
 
 
 // //GAME VARIABLES/CONSTANTS
+let speed = 3;
 // const paddleWidth = 100;
 // const paddleBottom = 50;
 // const paddleHeight = 20;
@@ -20,13 +21,15 @@ cvs.width = 500;
 // const ballRadius = 8;
 
 // // CREATING THE PADDLE 
-// const paddle = {
-//   x : cvs.width/2 - paddleWidth/2,
-//   y : cvs.height - paddleBottom - paddleHeight, //paddleBottom is distance btwn the bottom margin * bottom of paddle 
-//   width : paddleWidth,
-//   height : paddleHeight,
-//   dx: 5
-// }
+let paddle = {
+  x : cvs.width/2 - 76/2,
+  width : 76,
+  height : 10,
+  draw : function() {
+    ctx.fillStyle = "#FF8300";
+    ctx.fillRect(this.x, cvs.height-this.height, this.width, this.height);
+  }
+};
 
 // function drawPaddle(){
 //   ctx.fillStyle = "#2e3548";
@@ -64,24 +67,23 @@ cvs.width = 500;
 // }
 
 // //CREATING THE BALL
-// const ball = {
-//   x : cvs.width/2,
-//   y : paddle.y - ballRadius,
-//   radius : ballRadius,
-//   speed : 4,
-//   dx : 3 * (Math.random() * 2 - 1),
-//   dy : -3
-// }
+let ball = {
+  x : cvs.width/2,
+  y : cvs.height - 50,
+  dx : speed,
+  dy : -speed * 1,
+  radius : 7,
+  draw : function() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+    ctx.fillStyle = "#FF8300";
+    ctx.fill();
+    ctx.closePath();
+  }
+};
 
-// function drawBall(){
-//   ctx.beginPath();
-//   ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2);
-//   ctx.fillStyle = "#ff494e";
-//   ctx.fill();
-//   ctx.strokeStyle = "#2e3548";
-//   ctx.stroke();
-//   ctx.closePath();
-// }
+
+
 
 // //MAKING BALL MOVE
 // function moveBall(){
@@ -200,14 +202,13 @@ cvs.width = 500;
 //   ball.dy = -3;
 // }
 // //MAIN FUNCTIONS
-// function draw(){
-//     drawPaddle();
-//     drawBall();
-//     drawBricks();
-//     showGameStats(score, 35, 25);
-//     showGameStats(life, cvs.width-25, 25);
-//     showGameStats(level, cvs.width/2, 25);
-// }
+function drawAll(){
+    ball.draw();
+    paddle.draw();
+    
+}
+
+drawAll();
 
 
 // function update(){
@@ -227,7 +228,7 @@ cvs.width = 500;
 
 //   update();
 
-//   requestAnimationFrame(loop);
+  requestAnimationFrame(loop);
 
 // }
 // loop();
