@@ -202,13 +202,19 @@ let ball = {
 //   ball.dy = -3;
 // }
 // //MAIN FUNCTIONS
-function drawAll(){
+function play(){
+    ctx.clearRect(0, 0, cvs.width, cvs.height)
     ball.draw();
     paddle.draw();
+
+    ball.x += ball.dx;
+    ball.y += ball.dy;
+
+    requestAnimationFrame(play);
     
 }
 
-drawAll();
+play();
 
 
 // function update(){
@@ -223,12 +229,11 @@ drawAll();
 
 
 // function loop(){
-//   ctx.clearRect(0, 0, cvs.width, cvs.height)
+
 //   draw();
 
 //   update();
 
-  requestAnimationFrame(loop);
 
 // }
 // loop();
