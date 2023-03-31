@@ -8,11 +8,9 @@ cvs.width = 500;
 
 // //GAME VARIABLES/CONSTANTS
 let speed = 3;
-// const paddleWidth = 100;
-// const paddleBottom = 50;
-// const paddleHeight = 20;
 let leftArrow = false;
 let rightArrow = false;
+
 // let life = 2;
 // let score = 0;
 // const scoreUnit = 5;
@@ -79,24 +77,7 @@ function movePaddle(){
 }
 
 
-// document.addEventListener("keydown", function(event){
-//   if(event.keyCode == 37){
-//       leftArrow = true;
-//   }else if(event.keyCode == 39){
-//       rightArrow = true;
-//   }
-// });
-// document.addEventListener("keyup", function(event){
-//   if(event.keyCode == 37){
-//       leftArrow = false;
-//   }else if(event.keyCode == 39){
-//       rightArrow = false;
-//   }
-// });
-
-
-
-// //CREATING THE BALL
+// //CREATING THE BALL 
 let ball = {
   x : cvs.width/2,
   y : cvs.height - 50,
@@ -136,65 +117,46 @@ let ball = {
 //     }
 // }
 
-// //COLLISION DETECTION WHEN BALL HITS PADDLE
-// function ballPaddleCollision(){
-//     if(ball.x < paddle.x + paddle.width && ball.x > paddle.x && paddle.y < paddle.y +
-//       paddle.height && ball.y > paddle.y ){
-//         //CHECK WHERE BALL HITS PADDLE
-//           let collisionPoint = ball.x - (paddle.x + paddle.width/2);
-//         // NORMALIZE VALUES TO GET POINTS BTWN -1 AND 1 
-//           collisionPoint = collisionPoint / (paddle.width/2);
-//         //CALCULATE THE ANGLE BALL IS SENT, MAX ANGLE IS 60 DEGREES
-//           let angle = collisionPoint * Math.PI/3;
-//           ball.dx = ball.speed * Math.sin(angle);
-//           ball.dy = - ball.speed * Math.cos(angle);
-//       }
-
-// }
 
 // //CREATING THE BRICKS
-// const brick = {
-//   row : 3,
-//   column : 5,
-//   width : 55,
-//   height : 20,
-//   leftOffSet: 20,
-//   topOffSet : 20,
-//   topMargin : 40,
-//   fillColor : "2e3548",
-//   strokeColor : "#FFF"
-// }
+let brick = {
+  row : 3,
+  column : 5,
+  width : 70,
+  height : 20,
+  leftOffSet: 35,
+  topOffSet : 30,
+  padding : 20,
+  fillColor :"#FF8300",
+}
 
-// let bricks = [];
+const bricks = [];
+function createBricks(){
+for (let c = 0; c < brick.column; c++) {
+  bricks[c] = [];
+  for (let r = 0; r < brick.row; r++) {
+    bricks[c][r] = { x: 0, y: 0, status: 1 };
+    }
+  }
+}
 
-// function createBricks(){
-//     for(let r = 0; r < brick.row; r++){
-//         bricks[r] = [];
-//         for(let c = 0; c < brick.column; c++){
-//           bricks[r][c] = {
-//             x : c * (brick.leftOffSet + brick.width) + brick.leftOffSet,
-//             y : r * (brick.topOffSet + brick.height) + brick.topOffSet + brick.topMargin,
-//             status : true
-//           }
-//        }
-//     }
-// }
 
-// createBricks();
+createBricks();
 
-// function drawBricks(){
-//   for(let r = 0; r < brick.row; r++){
-//       for(let c = 0; c < brick.column; c++){
-//           let b = bricks[r][c];
-//           if(b.status){  // if the brick isn't broken
-//               ctx.fillStyle = brick.fillColor;
-//               ctx.fillRect(b.x, b.y, brick.width, brick.height);
-//               ctx.strokeStyle = brick.strokeColor;
-//               ctx.strokeRect(b.x, b.y, brick.width, brick.height);
-//           }
-//       }
-//   }
-// }
+function drawBricks() {
+  for (let c = 0; c < brick.column; c++) {
+    for (let r = 0; r < brick.row; r++) {
+      const brickX = c * (brick.width + brick.padding) + brick.leftOffSet;
+      const brickY = r * (brick.height + brick.padding) + brick.topOffSet;
+      bricks[c][r].x = brickX;
+      bricks[c][r].y = brickY;
+      ctx.fillRect(brickX, brickY, brick.width, brick.height);
+      ctx.fillStyle = brick.fillColor;
+    }
+  }
+}
+
+
 
 // //COLLISION DETECTION FOR BRICKS
 // function ballBrickCollision(){
@@ -234,9 +196,9 @@ function play(){
     ctx.clearRect(0, 0, cvs.width, cvs.height)
     ball.draw();
     paddle.draw();
-
+    drawBricks();
     movePaddle();
-
+    // MOVING THE BALL
     ball.x += ball.dx;
     ball.y += ball.dy;
     //COLLISION DETECTION WHEN BALL HITS WALL
@@ -246,6 +208,13 @@ function play(){
     if(ball.y + ball.radius > cvs.height || ball.y - ball.radius < 0){
       ball.dy = - ball.dy;
     }
+    //COLLISION DETECTION WHEN BALL HITS PADDLE
+    if (ball.x >= paddle.x && ball.x <= paddle.x + paddle.width &&
+        ball.y + ball.radius >= cvs.height - paddle.height)
+        {
+          ball.dy *= -1;
+        }
+
     
 
     requestAnimationFrame(play);
