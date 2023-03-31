@@ -22,7 +22,7 @@ body{
 
 .high-score{
 	position: absolute;
-	top: 1.5rem;
+	top: 6.5rem;
 	width: 80%;
 	left: 10%;
 	text-align: center;
@@ -31,7 +31,7 @@ body{
 .reset{
 	cursor: pointer;
 	position: absolute;
-	top: 95%;
+	top: 85%;
 	left: 10%;
 	width: 80%;
 	text-align: center;
