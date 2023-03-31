@@ -10,13 +10,8 @@ cvs.width = 500;
 let speed = 3;
 let leftArrow = false;
 let rightArrow = false;
+let score = 0;
 
-// let life = 2;
-// let score = 0;
-// const scoreUnit = 5;
-// let level = 1;
-// const maxLevel = 5;
-// const ballRadius = 8;
 
 // // CREATING THE PADDLE 
 let paddle = {
@@ -28,15 +23,6 @@ let paddle = {
     ctx.fillRect(this.x, cvs.height-this.height, this.width, this.height);
   }
 };
-
-// function drawPaddle(){
-//   ctx.fillStyle = "#2e3548";
-//   ctx.fillRect(paddle.x, paddle.y, paddle.width, paddle.height);
-
-//   ctx.strokeStyle = "#ff494e";
-//   ctx.strokeRect(paddle.x, paddle.y, paddle.width, paddle.height);
-// }
-
 
 
 //CONTROLING THE PADDLE
@@ -174,45 +160,19 @@ function collisionDetection() {
            {
               ball.dy *= -1;
               b.status = 0;
-            // score++
+              score++
         }
       }
     }
   }
 }
+//DISPLAYING SCORE 
+function showScore(){
+  ctx.font = '16px Arial';
+  ctx.fillStyle = "#FF8300";
+  ctx.fillText("SCORE: " + score, 8, 20);
+}
 
-// function ballBrickCollision(){
-//   for(let r = 0; r < brick.row; r++){
-//       for(let c = 0; c < brick.column; c++){
-//           let b = bricks[r][c];
-//           if(b.status){// if the brick isn't broken
-//               if(ball.x + ball.radius > b.x && ball.x - ball.radius < b.x + brick.width && ball.y + ball.radius > b.y && ball.y - ball.radius < b.y + brick.height){
-//                   ball.dy = - ball.dy;
-//                   b.status = false; // the brick is broken
-//                   score += scoreUnit;
-//               }
-//           }
-//       }
-//   }
-// }
-
-// //DISPLAYING THE GAME STATS
-// function showGameStats(text, textX, textY){
-//     ctx.fillStyle = "#FFF";
-//     ctx.font = "25px Bowlby One";
-//     ctx.fillText(text, textX, textY);   
-// }
-
-// function showGameSymbols(img, imgX, imgY){
-//     ctx.drawImage(img, imgX, imgY,width = 25, height = 25);  
-// }
-// //RESETING THE BALL
-// function resetBall(){
-//   ball.x = cvs.width/2;
-//   ball.y = paddle.y - ballRadius;
-//   ball.dx = 3 * (Math.random() * 2 - 1);
-//   ball.dy = -3;
-// }
 // //MAIN FUNCTIONS
 function play(){
     ctx.clearRect(0, 0, cvs.width, cvs.height)
@@ -221,6 +181,7 @@ function play(){
     drawBricks();
     movePaddle();
     collisionDetection();
+    showScore();
     // MOVING THE BALL
     ball.x += ball.dx;
     ball.y += ball.dy;
@@ -247,24 +208,4 @@ function play(){
 play();
 
 
-// function update(){
-//     movePaddle();
-//     moveBall();
-//     ballWallCollision();
-//     ballPaddleCollision();
-//     ballBrickCollision();
-    
-// }
-
-
-
-// function loop(){
-
-//   draw();
-
-//   update();
-
-
-// }
-// loop();
 
