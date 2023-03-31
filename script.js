@@ -220,7 +220,7 @@ function play(){
     if(ball.y + ball.radius > cvs.height){
       if(score > parseInt(localStorage.getItem("highScore"))){
           localStorage.setItem("highScore", score.toString());
-          scoreDisplay.innerHTML = `High Score: ${score}`;
+          scoreDisplay.innerHTML = `HIGH SCORE: ${score}`;
           }
           score = 0;
           createBricks();
