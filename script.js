@@ -77,7 +77,7 @@ let ball = {
   x : cvs.width/2,
   y : cvs.height - 50,
   dx : speed,
-  dy : -speed * 1,
+  dy : -speed + 1,
   radius : 7,
   draw : function() {
     ctx.beginPath();
@@ -128,8 +128,7 @@ function drawBricks() {
     }
   }
 }
-
-
+ console.log(bricks) //Test to show that the bricks are initialized and in an array 
 
 // //COLLISION DETECTION FOR BRICKS
 
@@ -151,33 +150,33 @@ function collisionDetection() {
       }
     }
 
-    
 //DISPLAYING SCORE 
 function showScore(){
-  ctx.font = '16px Arial';
+  ctx.font = '16px Courier New';
   ctx.fillStyle = "#FF8300";
-  ctx.fillText("SCORE: " + score, 8, 20);
+  ctx.fillText("SCORE:" + score, 8, 20);
 }
-
+// Makes highScore 0 if a highScore doesn't exist 
 if (isNaN(highScore)) {
   highScore = 0;
 }
 
-scoreDisplay.innerHTML = `High Score: ${highScore}`;
+scoreDisplay.innerHTML = `HIGH SCORE: ${highScore}`;
 
 
  //LEVEL UP 
 function levelUp(){
+  //15 Bricks in total, Bricks will regenerate every 15 times they're destoryed
   if (score % 15 == 0 && score !=0){
-    if(ball.y > cvs.height/2){
+    if(ball.y > cvs.height/2){ //Bricks will reload when ball comes done halfway
       createBricks();
     }
     if(gameLevelUp){
       if(ball.dy > 0){
-          ball.dy += 2
+          ball.dy += 2;
           gameLevelUp = false;
       }else if(ball.dy < 0 ){
-        ball.dy -= 1;
+        ball.dy -= 2;
         gameLevelUp = false;
       }
     }
@@ -214,6 +213,7 @@ function play(){
         ball.y + ball.radius >= cvs.height - paddle.height)
         {
           ball.dy *= -1;
+          console.log("hit"); //Test for if the ball hits the paddle
         }
 
     //RESET SCORE
