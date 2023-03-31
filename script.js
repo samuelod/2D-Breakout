@@ -11,6 +11,7 @@ let speed = 3;
 let leftArrow = false;
 let rightArrow = false;
 let score = 0;
+const highScore = document.querySelector('.high-score');
 
 
 // // CREATING THE PADDLE 
@@ -171,6 +172,7 @@ function levelUp(){
 
 let gameLevelUp = true;
 
+
 // //MAIN FUNCTIONS
 function play(){
     ctx.clearRect(0, 0, cvs.width, cvs.height)
@@ -197,6 +199,19 @@ function play(){
         {
           ball.dy *= -1;
         }
+
+    //RESET SCORE
+    if(ball.y + ball.radius > cvs.height){
+      if(score > parseInt(localStorage.getItem('highScore'))){
+          localStorage.setItem('highScore', score.toString());
+          highScore.innerHTML = `High Score: ${score}`
+          }
+          score = 0;
+          createBricks();
+          ball.dx = speed;
+          ball.dy = -speed + 1;
+        }    
+        
 
     
 
