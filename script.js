@@ -11,7 +11,11 @@ let speed = 3;
 let leftArrow = false;
 let rightArrow = false;
 let score = 0;
-const highScore = document.querySelector('.high-score');
+const scoreDisplay = document.querySelector('.high-score');
+let highScore = parseInt(localStorage.getItem('highScore'));
+
+
+
 
 
 // // CREATING THE PADDLE 
@@ -150,6 +154,12 @@ function showScore(){
   ctx.fillText("SCORE: " + score, 8, 20);
 }
 
+if (isNaN(highScore)) {
+  highScore = 0;
+}
+
+scoreDisplay.innerHTML = `High Score: ${highScore}`;
+ //LEVEL UP 
 function levelUp(){
   if (score % 15 == 0 && score !=0){
     if(ball.y > cvs.height/2){
@@ -204,7 +214,7 @@ function play(){
     if(ball.y + ball.radius > cvs.height){
       if(score > parseInt(localStorage.getItem('highScore'))){
           localStorage.setItem('highScore', score.toString());
-          highScore.innerHTML = `High Score: ${score}`
+          scoreDisplay.innerHTML = `High Score: ${score}`;
           }
           score = 0;
           createBricks();
