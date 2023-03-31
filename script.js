@@ -146,12 +146,14 @@ createBricks();
 function drawBricks() {
   for (let c = 0; c < brick.column; c++) {
     for (let r = 0; r < brick.row; r++) {
+      if (bricks[c][r].status == 1) {
       const brickX = c * (brick.width + brick.padding) + brick.leftOffSet;
       const brickY = r * (brick.height + brick.padding) + brick.topOffSet;
       bricks[c][r].x = brickX;
       bricks[c][r].y = brickY;
       ctx.fillRect(brickX, brickY, brick.width, brick.height);
       ctx.fillStyle = brick.fillColor;
+      }  
     }
   }
 }
@@ -159,6 +161,26 @@ function drawBricks() {
 
 
 // //COLLISION DETECTION FOR BRICKS
+
+function collisionDetection() {
+  for (let c = 0; c < brick.column; c++) {
+    for (let r = 0; r < brick.row; r++) {
+      const b = bricks[c][r];
+      if (b.status == 1) {
+        if (ball.x >= b.x && 
+            ball.x <= b.x + brick.width &&
+            ball.y >= b.y && 
+            ball.y <= b.y + brick.height)
+           {
+              ball.dy *= -1;
+              b.status = 0;
+            // score++
+        }
+      }
+    }
+  }
+}
+
 // function ballBrickCollision(){
 //   for(let r = 0; r < brick.row; r++){
 //       for(let c = 0; c < brick.column; c++){
@@ -198,6 +220,7 @@ function play(){
     paddle.draw();
     drawBricks();
     movePaddle();
+    collisionDetection();
     // MOVING THE BALL
     ball.x += ball.dx;
     ball.y += ball.dy;
