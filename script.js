@@ -47,7 +47,6 @@ function keyUpHandler(event) {
 }
 
 
-
 function movePaddle(){
   if(rightArrow){
     paddle.x += 7;
@@ -79,29 +78,6 @@ let ball = {
   }
 };
 
-
-
-
-// //MAKING BALL MOVE
-// function moveBall(){
-//   ball.x += ball.dx;
-//   ball.y += ball.dy;
-// }
-
-// //COLLISION DETECTION WHEN BALL HITS WALL
-
-// function ballWallCollision(){
-
-//     if(ball.y - ball.radius < 0){
-//         ball.dy = -ball.dy;
-//     }
-//     if(ball.y + ball.radius > cvs.height){
-//       life--; //LOSE A LIFE
-//       // console.log(life)
-//       // lives.style.display = "none";
-//       // resetBall(); 
-//     }
-// }
 
 
 // //CREATING THE BRICKS
@@ -173,6 +149,28 @@ function showScore(){
   ctx.fillText("SCORE: " + score, 8, 20);
 }
 
+function levelUp(){
+  if (score % 15 == 0 && score !=0){
+    if(ball.y > cvs.height/2){
+      createBricks();
+    }
+    if(gameLevelUp){
+      if(ball.dy > 0){
+          ball.dy += 2
+          gameLevelUp = false;
+      }else if(ball.dy < 0 ){
+        ball.dy -= 1;
+        gameLevelUp = false;
+      }
+    }
+    if(score % 15 !=0){
+      gameLevelUp = true;
+    }
+  }
+}
+
+let gameLevelUp = true;
+
 // //MAIN FUNCTIONS
 function play(){
     ctx.clearRect(0, 0, cvs.width, cvs.height)
@@ -182,6 +180,7 @@ function play(){
     movePaddle();
     collisionDetection();
     showScore();
+    levelUp();
     // MOVING THE BALL
     ball.x += ball.dx;
     ball.y += ball.dy;
