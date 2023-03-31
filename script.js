@@ -11,8 +11,8 @@ let speed = 3;
 // const paddleWidth = 100;
 // const paddleBottom = 50;
 // const paddleHeight = 20;
-// let leftArrow = false;
-// let rightArrow = false;
+let leftArrow = false;
+let rightArrow = false;
 // let life = 2;
 // let score = 0;
 // const scoreUnit = 5;
@@ -41,7 +41,44 @@ let paddle = {
 
 
 
-// //CONTROLING THE PADDLE
+//CONTROLING THE PADDLE
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+
+
+function keyDownHandler(event) {
+  if (event.key === "Right" || event.key === "ArrowRight") {
+    rightArrow = true;
+  } else if (event.key === "Left" || event.key === "ArrowLeft") {
+    leftArrow = true;
+  }
+}
+
+function keyUpHandler(event) {
+  if (event.key === "Right" || event.key === "ArrowRight") {
+    rightArrow = false;
+  } else if (event.key === "Left" || event.key === "ArrowLeft") {
+    leftArrow = false;
+  }
+}
+
+
+
+function movePaddle(){
+  if(rightArrow){
+    paddle.x += 7;
+    if(paddle.x + paddle.width >= cvs.width){
+      paddle.x = cvs.width - paddle.width;
+    }
+  }else if(leftArrow){
+    paddle.x -= 7;
+    if(paddle.x < 0){
+      paddle.x = 0;
+    }
+  }
+}
+
+
 // document.addEventListener("keydown", function(event){
 //   if(event.keyCode == 37){
 //       leftArrow = true;
@@ -58,13 +95,6 @@ let paddle = {
 // });
 
 
-// function movePaddle(){
-//     if(rightArrow && paddle.x + paddle.width < cvs.width){
-//       paddle.x += paddle.dx;
-//     }else if(leftArrow && paddle.x > 0){
-//       paddle.x -= paddle.dx;
-//     }
-// }
 
 // //CREATING THE BALL
 let ball = {
@@ -204,6 +234,8 @@ function play(){
     ctx.clearRect(0, 0, cvs.width, cvs.height)
     ball.draw();
     paddle.draw();
+
+    movePaddle();
 
     ball.x += ball.dx;
     ball.y += ball.dy;
