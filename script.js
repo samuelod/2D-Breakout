@@ -18,7 +18,7 @@ const reset = document.querySelector(".reset");
 reset.addEventListener("click", () =>{
     localStorage.setItem("highScore", "0");
     score = 0;
-    scoreDisplay.innerHTML = 'High Score: 0';
+    scoreDisplay.innerHTML = 'HIGH SCORE: 0';
     drawBricks();
 })
 
