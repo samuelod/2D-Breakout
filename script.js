@@ -94,9 +94,7 @@ let ball = {
 // //COLLISION DETECTION WHEN BALL HITS WALL
 
 // function ballWallCollision(){
-//     if(ball.x + ball.radius > cvs.width || ball.x - ball.radius < 0){
-//         ball.dx = - ball.dx;
-//     }
+
 //     if(ball.y - ball.radius < 0){
 //         ball.dy = -ball.dy;
 //     }
@@ -209,6 +207,14 @@ function play(){
 
     ball.x += ball.dx;
     ball.y += ball.dy;
+    //COLLISION DETECTION WHEN BALL HITS WALL
+    if(ball.x + ball.radius > cvs.width || ball.x - ball.radius < 0){
+      ball.dx = - ball.dx;
+    }
+    if(ball.y + ball.radius > cvs.height || ball.y - ball.radius < 0){
+      ball.dy = - ball.dy;
+    }
+    
 
     requestAnimationFrame(play);
     
