@@ -5,7 +5,6 @@ cvs.height = 500;
 cvs.width = 500;
 
 
-
 // //GAME VARIABLES/CONSTANTS
 let speed = 3;
 let leftArrow = false;
@@ -22,9 +21,6 @@ reset.addEventListener("click", () =>{
     scoreDisplay.innerHTML = 'High Score: 0';
     drawBricks();
 })
-
-
-
 
 
 // // CREATING THE PADDLE 
@@ -93,7 +89,6 @@ let ball = {
 };
 
 
-
 // //CREATING THE BRICKS
 let brick = {
   row : 3,
@@ -147,15 +142,16 @@ function collisionDetection() {
             ball.x <= b.x + brick.width &&
             ball.y >= b.y && 
             ball.y <= b.y + brick.height)
-           {
-              ball.dy *= -1;
+           {  ball.dy *= -1;
               b.status = 0;
               score++
+           }
+         }
         }
       }
     }
-  }
-}
+
+    
 //DISPLAYING SCORE 
 function showScore(){
   ctx.font = '16px Arial';
@@ -192,7 +188,6 @@ function levelUp(){
 }
 
 let gameLevelUp = true;
-
 
 // //MAIN FUNCTIONS
 function play(){
@@ -231,13 +226,8 @@ function play(){
           createBricks();
           ball.dx = speed;
           ball.dy = -speed + 1;
-        }    
-        
-
-    
-
-    requestAnimationFrame(play);
-    
+        }            
+    requestAnimationFrame(play);    
 }
 
 play();
