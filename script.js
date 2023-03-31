@@ -212,7 +212,7 @@ function play(){
     if (ball.x >= paddle.x && ball.x <= paddle.x + paddle.width &&
         ball.y + ball.radius >= cvs.height - paddle.height)
         {
-          ball.dy *= -1;
+          ball.dy *= -1.1;
           console.log("hit"); //Test for if the ball hits the paddle
         }
 
